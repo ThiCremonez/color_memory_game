@@ -1,0 +1,92 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #282149ef;
+}
+
+h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 90px;
+    color: #FFE5C4;
+}
+
+section{
+    display: grid;
+    place-items: center;
+}
+
+.bn{
+    display:inline-block;
+    height: 50px;
+    width: 100px;
+    position: absolute;
+    border-radius: 10px;
+    border: none;
+}
+  
+.red{
+    background-color: rgb(219, 79, 79);
+}
+
+.red:active{
+    background-color: red;
+    box-shadow: red 0rem 0rem 4rem .5rem;
+}
+
+.green{
+    background-color: rgb(132, 245, 132);
+    margin-top: 200px;
+    margin-left: 250px;
+}
+
+.green:active{
+    background-color: rgb(0, 255, 0);
+    box-shadow: rgb(0, 255, 0) 0rem 0rem 4rem .5rem;
+}
+
+.yellow{
+    background-color: rgb(255, 255, 162);
+    margin-top: 400px;
+  }
+
+.yellow:active{
+    background-color: yellow;
+    box-shadow: yellow 0rem 0rem 4rem .5rem;
+}
+
+.blue{
+    background-color: rgb(108, 108, 255);
+    margin-top: 200px;
+    margin-right: 250px;
+  }
+
+
+.blue:active{
+    background-color:blue;
+    box-shadow: blue 0rem 0rem 4rem .5rem;
+}
+
+#start{
+    margin-top: 600px;
+    height: 30px;
+    width: 70px;
+    position: absolute;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#msg{
+    position: absolute;
+    margin-top: 200px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
