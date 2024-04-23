@@ -10,11 +10,12 @@
     <h1>Color Memory</h1>
     <section id="game">
         <p id="msg">GO!</p>
-        <button type="button" class="bn red"></button>
-        <button type="button" class="bn green"></button>
-        <button type="button" class="bn yellow"></button>
-        <button type="button" class="bn blue"></button>
-        <button type="button" id="start">Start!</button>
+        <button type="button" class="bn red" onclick="addColor(1)" value="1"></button>
+        <button type="button" class="bn green" onclick="addColor(2)" value="2"></button>
+        <button type="button" class="bn yellow" onclick="addColor(3)" value="3"></button>
+        <button type="button" class="bn blue" onclick="addColor(4)" value="4"></button>
+        <button type="button" id="start" onclick="start()">Start!</button>
     </section>
+    <script src="color_memory_game.js"></script>
 </body>
 </html>

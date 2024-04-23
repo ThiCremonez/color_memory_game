@@ -34,7 +34,7 @@ section{
     background-color: rgb(219, 79, 79);
 }
 
-.red:active{
+.red:active, .active_red{
     background-color: red;
     box-shadow: red 0rem 0rem 4rem .5rem;
 }
@@ -45,7 +45,7 @@ section{
     margin-left: 250px;
 }
 
-.green:active{
+.green:active, .active_green{
     background-color: rgb(0, 255, 0);
     box-shadow: rgb(0, 255, 0) 0rem 0rem 4rem .5rem;
 }
@@ -55,7 +55,7 @@ section{
     margin-top: 400px;
   }
 
-.yellow:active{
+.yellow:active, .active_yellow{
     background-color: yellow;
     box-shadow: yellow 0rem 0rem 4rem .5rem;
 }
@@ -67,7 +67,7 @@ section{
   }
 
 
-.blue:active{
+.blue:active, .active_blue{
     background-color:blue;
     box-shadow: blue 0rem 0rem 4rem .5rem;
 }
