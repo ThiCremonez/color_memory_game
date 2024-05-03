@@ -5,15 +5,15 @@
 }
 
 body{
-    background-color: #282149ef;
+    background-color: #0d0b0fef;
 }
 
 h1{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 30px;
-    margin-bottom: 90px;
-    color: #FFE5C4;
+    margin-top: 45px;
+    margin-bottom: 130px;
+    color: #ccc3b7;
 }
 
 section{
@@ -32,56 +32,78 @@ section{
   
 .red{
     background-color: rgb(219, 79, 79);
+    box-shadow: #000000 5px 5px 5px;
 }
 
 .red:active, .active_red{
     background-color: red;
     box-shadow: red 0rem 0rem 4rem .5rem;
+    transform: translateY(3px);
+}
+
+.red:disabled {
+    background-color:rgb(219, 79, 79);
+    box-shadow: none;
+    box-shadow: #000000 5px 5px 5px;
 }
 
 .green{
     background-color: rgb(132, 245, 132);
     margin-top: 200px;
     margin-left: 250px;
+    box-shadow: #000000 5px 5px 5px;
 }
 
 .green:active, .active_green{
     background-color: rgb(0, 255, 0);
     box-shadow: rgb(0, 255, 0) 0rem 0rem 4rem .5rem;
+    transform: translateY(3px);
+}
+
+.green:disabled {
+    background-color:rgb(132, 245, 132);
+    box-shadow: none;
+    box-shadow: #000000 5px 5px 5px;
 }
 
 .yellow{
     background-color: rgb(255, 255, 162);
     margin-top: 400px;
+    box-shadow: #000000 5px 5px 5px;
   }
 
 .yellow:active, .active_yellow{
     background-color: yellow;
     box-shadow: yellow 0rem 0rem 4rem .5rem;
+    transform: translateY(3px);
+}
+
+.yellow:disabled {
+    background-color:rgb(255, 255, 162);
+    box-shadow: none;
+    box-shadow: #000000 5px 5px 5px;
 }
 
 .blue{
     background-color: rgb(108, 108, 255);
     margin-top: 200px;
     margin-right: 250px;
+    box-shadow: #000000 5px 5px 5px;
   }
 
 
 .blue:active, .active_blue{
     background-color:blue;
     box-shadow: blue 0rem 0rem 4rem .5rem;
+    transform: translateY(3px);
 }
 
-#start{
-    margin-top: 600px;
-    height: 30px;
-    width: 70px;
-    position: absolute;
-    border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 20px;
+.blue:disabled {
+    background-color: rgb(108, 108, 255);
+    box-shadow: none;
+    box-shadow: #000000 5px 5px 5px;
 }
+
 
 #msg{
     position: absolute;
@@ -89,4 +111,60 @@ section{
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
+}
+
+.begin {
+    background-color: #fff;
+    color: #1b1b1b;
+    margin-top: 600px;
+    height: 35px;
+    width: 120px;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    box-shadow: #000000 5px 5px 0px 0px;
+    transition: opacity 0.5s ease;
+}
+
+.begin:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  box-shadow:
+   -7px -7px 20px 0px rgba(255, 255, 255, 0.290),
+   -4px -4px 5px 0px rgba(255, 255, 255, 0.290),
+   7px 7px 20px 0px rgba(0, 0, 0, 0.133),
+   4px 4px 5px 0px rgba(0, 0, 0, 0.067);
+  transition: all 0.3s ease;
+}
+.begin:hover {
+  color: #000;
+}
+.begin:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+.begin:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.begin:disabled {
+    opacity: 0; /* Define a opacidade para 0 quando o botão estiver desabilitado */
+    pointer-events: none; /* Impede que o botão seja clicável enquanto estiver desaparecendo */
+}
+
+#record {
+    color: #b4b4b4;
+    text-align: center;
+    margin-top: 380px;
+    font-family: 'Courier New', Courier, monospace;
 }

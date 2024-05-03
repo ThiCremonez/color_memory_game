@@ -1,235 +1,142 @@
 var newColor = '';
-var sequence = [];
 var sequencePlayer = [];
-var result = "correct";
-var segundos = 3;
-var valor = 0;
+var n = 0;
+var sequence = [];
+var color = '';
+var record = 0; 
 
-// Tempo limite em milissegundos (aqui, definido como 5 segundos)
-// const tempoLimite = 5000;
-
-// Variável para rastrear se o botão foi pressionado ou não
-// var botaoPressionado = false;
-
-// var bn_red = document.querySelector(".red");
-// var bn_green = document.querySelector(".green");
-// var bn_yellow = document.querySelector(".yellow");
-// var bn_blue = document.querySelector(".blue");
-
-// bn_red.addEventListener("click", compare);
-// bn_green.addEventListener("click", compare);
-// bn_yellow.addEventListener("click", compare);
-// bn_blue.addEventListener("click", compare); 
-
-// document.querySelector(".bn").addEventListener("click", function() {
-//     botaoPressionado = true;
-//     console.log("Você pressionou o botão a tempo! Você ganhou!");
-    
-// });
-
-async function start() {
-    await atualizarContagemRegressiva(); // aguarda 3 segundos para iniciar
-    await iniciarJogo();
+function start() { // When the begin button is pressed the game starts
+    document.querySelector(".begin").disabled = true;
+    updateCountdown(startGame);
 }
 
-// Função para atualizar a contagem regressiva a cada segundo  OK
-async function atualizarContagemRegressiva() {
-    // Exibe o número de segundos restantes
-    document.getElementById("msg").innerHTML = segundos;
+function updateCountdown(callback) { // Countdown to start the game
+    let seconds = 3;
+    document.getElementById("msg").innerHTML = seconds;
 
-    // Verifica se a contagem chegou a zero
-    if (segundos === 0) {
-        document.getElementById("msg").innerHTML = "GO!";
-    } else {
-        // Decrementa o contador de segundos
-        segundos--;
-        // Configura a próxima chamada para atualizar a contagem regressiva após 1 segundo
-        setTimeout(atualizarContagemRegressiva, 1000);
+    function countTime() {
+        if (seconds === 0) {
+            document.getElementById("msg").innerHTML = "GO!";
+            callback();
+        } else {
+            document.getElementById("msg").innerHTML = seconds;
+            seconds--;
+            setTimeout(countTime, 1000);
+        }
+    }
+    countTime();
+}
+
+async function startGame() {
+    sequencePlayer = [];
+    sequence = [];
+    document.querySelector(".blue").disabled = false;
+    document.querySelector(".green").disabled = false;
+    document.querySelector(".yellow").disabled = false;
+    document.querySelector(".red").disabled = false;
+    await delay(500);
+    while (n === 0) {
+        document.getElementById("msg").innerHTML = "";
+        sequencePlayer = [];
+        await delay(500);
+        await showColor();
+        document.getElementById("msg").innerHTML = "Your time";
+        for (let i = 0; i<sequence.length; i++) {
+            await waitTap();
+            if (sequencePlayer[i] !== sequence[i]) {
+                await playerLose();
+            }
+        }
+    }
+    n = 0;
+}
+
+async function showColor() {
+    newColor = Math.floor(Math.random() * 4) + 1;
+    sequence.push(newColor);
+    await changeCss(); 
+}
+
+async function changeCss() {
+    let buttonSelector = '';
+    let buttonActive = '';
+    for (let i = 0; i<sequence.length; i++) {
+        color = sequence[i];
+        switch (color) {
+            case 1:
+                buttonSelector = ".red";
+                buttonActive = "active_red";
+                break;
+            case 2:
+                buttonSelector = ".green";
+                buttonActive = "active_green";
+                break;
+            case 3:
+                buttonSelector = ".yellow";
+                buttonActive = "active_yellow";
+                break;
+            case 4:
+                buttonSelector = ".blue";
+                buttonActive = "active_blue";
+                break;
+        }
+        var buttonElement = document.querySelector(buttonSelector);
+        buttonElement.classList.add(buttonActive);
+        await delay(750);
+        buttonElement.classList.remove(buttonActive);
+        await delay(200);
     }
 }
 
-function iniciarJogo() {
-    return new Promise( (resolve) => {
-        setTimeout (async () => {
-            var i = 0;
-            while (result === "correct") {
-                newColor = getRandomColor();
-                sequence.push(newColor);
-                changeCss();
-                await esperar();
-                await compare();
-                removerEventListeners;
-                i++;
-                valor = 0;
-            }
-            resolve();
-        }, 3000);
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function wait(num) {
+    sequencePlayer.push(num);
+
+    for (let i = 0; i<sequence.length; i++) {
+        if (sequence[i] !== sequencePlayer[i]) {
+            return n = 1;
+        }
+        else {
+            return n = 0;
+        }
+    }
+}
+
+function waitTap() { // When any button is pressed, we resolve the promise
+    return new Promise(resolve => {
+        document.querySelector(".red").addEventListener("click", function (wait) {
+            resolve(wait);
+        });
+        document.querySelector(".green").addEventListener("click", function (wait) {
+            resolve(wait);
+        });
+        document.querySelector(".yellow").addEventListener("click", function (wait) {
+            resolve(wait);
+        });
+        document.querySelector(".blue").addEventListener("click", function (wait) {
+            resolve(wait);
+        });
     });
 }
 
-function changeCss(callback){
-
-    let buttonSelector = '';
-    let buttonActive  = '';
-
-    switch (newColor) {
-        case 1:
-            buttonSelector = ".red";
-            buttonActive = "active_red";
-            break;
-        case 2:
-            buttonSelector = ".green";
-            buttonActive = "active_green";
-            break;
-        case 3:
-            buttonSelector = ".yellow";
-            buttonActive = "active_yellow";
-            break;
-        case 4:
-            buttonSelector = ".blue";
-            buttonActive = "active_blue";
-            break;
-    }
-
-    var buttonElement = document.querySelector(buttonSelector);
-        // Adiciona a classe '.active' ao botão
-        buttonElement.classList.add(buttonActive);
-
-        setTimeout(() => {
-            // Remove a classe '.active' após um breve período de tempo
-            buttonElement.classList.remove(buttonActive);
-        }, 1000);
-    callback();
-}
-
-function esperar(){
-
-    clearTimeout(timeout); // Limpa o timer se um botão for clicado
-    var valorg = this.value;
-    alert("Valor do botão pressionado: " + valorg);
-    // Você pode fazer o que quiser com o valor aqui, como enviar para o servidor ou manipular no próprio cliente
-}
-
-var timeout = setTimeout(function() {
-    alert("Nenhum botão pressionado dentro do tempo limite.");
-    // Retornar "0" ou executar outra ação quando nenhum botão for pressionado
-}, 3000); // 3 segundos em milissegundos
-
-
-document.querySelector(".red").onclick = esperar;
-document.querySelector(".green").onclick = esperar;
-document.querySelector(".yellow").onclick = esperar;
-document.querySelector(".blue").onclick = esperar;
-
-
-
-
-
-
-
-
-// function esperar() {
-//     return new Promise(() => {
-//         function callbackBotao(event) {
-//            var valor = event.target.value;
-//         //   resolve(valor);
-//         }
-
-//     document.querySelector(".red").addEventListener("click", callbackBotao);
-//     document.querySelector(".green").addEventListener("click", callbackBotao);
-//     document.querySelector(".yellow").addEventListener("click", callbackBotao);
-//     document.querySelector(".blue").addEventListener("click", callbackBotao);
-
-// });
-// }
-
-
-function removerEventListeners() {
-    document.querySelector('.red').removeEventListener('click', callbackBotao);
-    document.querySelector('.green').removeEventListener('click', callbackBotao);
-    document.querySelector('.yellow').removeEventListener('click', callbackBotao);
-    document.querySelector('.blue').removeEventListener('click', callbackBotao);
-}
-
-
-
-
-async function compare() {
-    if (valor===sequence[i]) {
-        return result = "correct";
-    } else {
-        return result = "errou";
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function tempoEsgotado() {
-    if (!botaoPressionado) {
-        playerLose();
-    }
-}
-
 function playerLose() {
-    document.getElementById("msg").innerHTML = "You lose";
+    document.getElementById("msg").innerHTML = "You lose!<br>"+(sequence.length-1)+" points";
+    if (record<(sequence.length-1)) {
+        record = (sequence.length-1);
+    }
+    document.getElementById("record").innerHTML = "Record: "+record+" points";
+    //reset variables to restart game
+    newColor = "";
+    sequencePlayer = [];
+    n = 1;
+    sequence = [];
+    color = "";
+    document.querySelector(".blue").disabled = true;
+    document.querySelector(".green").disabled = true;
+    document.querySelector(".yellow").disabled = true;
+    document.querySelector(".red").disabled = true;
+    document.querySelector(".begin").disabled = false;
 }
-
-function getRandomColor() {
-    return Math.floor(Math.random() * (5 - 1) + 1);
-} // Getting a random intenger number between 0 and 5
-
-
-
-
-
-
-function changeColorTemporarily(tempColor, duration) {
-    btn.style.backgroundColor = tempColor; // Alterando a cor do botão
-
-    // Restaurando a cor original após o tempo especificado
-    setTimeout(function() {
-        btn.style.backgroundColor = originalColor;
-    }, duration)
-
-}
-
-
-
-
-
-
-function ativarTemporariamente(elemento) {
-    // Adiciona a classe 'active' ao elemento
-    elemento.classList.add('active');
-
-    // Remove a classe 'active' após um breve período de tempo
-    setTimeout(() => {
-        elemento.classList.remove('active');
-    }, 1000); // Define o tempo desejado em milissegundos (aqui, 1 segundo)
-}
-
-// Exemplo de uso:
-const botao = document.querySelector('.green'); // Selecione o botão verde
-ativarTemporariamente(botao); // Ativa temporariamente o pseudo-classe ':active'
